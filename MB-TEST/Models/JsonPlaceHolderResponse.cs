@@ -9,15 +9,15 @@ namespace MB_TEST
     public class JsonPlaceHolderResponse
     {
         [JsonProperty("id")]
-        int id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("userId")]
-        int userId { get; set; }
+        public int UserId { get; set; }
 
         [JsonProperty("title")]
-        string title { get; set; }
+        public string Title { get; set; }
 
         [JsonProperty("body")]
-        string body { get; set; }
+        public string Body { get; set; }
     }
 }

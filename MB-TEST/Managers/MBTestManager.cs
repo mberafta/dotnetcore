@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MB_TEST
 {
-    public class MBTestManager
+    public class MBTestManager:IDisposable
     {
         /// <summary>
         /// Appel HTTP avec demande de la longueur de la requête
@@ -49,6 +49,11 @@ namespace MB_TEST
             var httpResponse = httpMessage.Content.ReadAsStringAsync();
             var deserialized = JsonConvert.DeserializeObject<List<JsonPlaceHolderResponse>>(httpResponse.Result);
             return deserialized;
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }
