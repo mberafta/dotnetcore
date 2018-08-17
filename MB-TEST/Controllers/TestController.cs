@@ -18,6 +18,8 @@ namespace MB_TEST.Controllers
     {
         public TestFormModel tfm = new TestFormModel();
 
+        private readonly MBTestManager mBTestManager = new MBTestManager();
+
         [HttpGet]
         public IActionResult Test()
         {
@@ -49,9 +51,11 @@ namespace MB_TEST.Controllers
         [HttpGet]
         public async Task<IActionResult> UseAsyncMethod()
         {
-            long? length = await AsyncMethods.GetPageLength();
-            var jsonPlaceholderData = await AsyncMethods.GetPosts();
+            long? length = await mBTestManager.GetPageLength();
+            var jsonPlaceholderData = await mBTestManager.GetPosts();
+
             ViewBag.pageLength = $"Longueur de la page de demandée : {length}";
+
             return View("Test");
         }
 
@@ -100,57 +104,5 @@ namespace MB_TEST.Controllers
             return result;
         }
     }
-
-    public class AsyncMethods
-    {
-        public async static Task<long?> GetPageLength()
-        {
-            HttpClient client = new HttpClient();
-            var httpMessage = await client.GetAsync("http://apress.com");
-            return httpMessage.Content.Headers.ContentLength;
-        }
-
-        public async static Task<List<JsonPlaceholderResponse>> GetPosts()
-        {
-
-            var proxyHost = "http://surf-sccc.pasi.log.intra.laposte.fr";
-            var proxyPort = "8080";
-
-            var proxy = new WebProxy()
-            {
-                Address = new Uri($"{proxyHost}:{proxyPort}"),
-                BypassProxyOnLocal = false,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(userName: "XUFJ641", password: "Nilmar69!")
-            };
-
-            HttpClientHandler handler = new HttpClientHandler() { Proxy = proxy };
-
-            const string url = "https://jsonplaceholder.typicode.com/posts";
-            HttpClient client = new HttpClient(handler);
-
-
-            var httpMessage = await client.GetAsync(url);
-            var httpResponse = httpMessage.Content.ReadAsStringAsync();
-            var deserialized = JsonConvert.DeserializeObject<List<JsonPlaceholderResponse>>(httpResponse.Result);
-            return deserialized;
-        }
-    }
-
-    public class JsonPlaceholderResponse
-    {
-        [JsonProperty("id")]
-        int id { get; set; }
-
-        [JsonProperty("userId")]
-        int userId { get; set; }
-
-        [JsonProperty("title")]
-        string title { get; set; }
-
-        [JsonProperty("body")]
-        string body { get; set; }
-    }
-
 
 }
