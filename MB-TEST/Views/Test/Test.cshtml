@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Test";
+}
+
+@model MB_TEST.Controllers.TestFormModel
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1>Test page</h1>
+        <p>Page used in order to test some ASP.NET CORE features</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            @if(ViewBag.pageLength != null)
+            {
+                <p class="text-center">@ViewBag.pageLength</p>
+            }
+            <form asp-controller="Test" asp-action="UseAsyncMethod" method="get">
+                <div class="form-group">
+                    <button class="btn btn-info" type="submit">Http test</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            @*<div class="alert alert-danger" asp-validation-summary="All">
+                </div>*@
+            <form asp-controller="Test" asp-action="Test" method="post">
+                <div class="form-group">
+                    <label asp-for="Name">Nom</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Age">Age</label>
+                    <input asp-for="Age" class="form-control" />
+                </div>
+                <button class="btn btn-primary" type="submit">Valider</button>
+            </form>
+        </div>
+    </div>
+    @if (Model != null && Model.Friends.Count() > 0)
+    {
+        <div class="row" style="margin-top:1em;">
+            <h3>Amis de @Model.Name</h3>
+            @foreach (var friend in Model.Friends)
+            {
+                <div class="col-sm-6 col-sm-offset-3">
+                    <p class="text-center">@friend</p>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+
+

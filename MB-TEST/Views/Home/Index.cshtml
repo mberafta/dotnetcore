@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model MB_TEST.Controllers.TestModel
+
+<div class="container-fluid" style="padding:10px;">
+    <div class="row">
+        <h1 class="text-center">
+            MB-ASP
+        </h1>
+        <p class="text-center">
+            @Model.Name
+        </p>
+        <a asp-action="Test" asp-controller="Test">
+            Test
+        </a>
+    </div>
+</div>
