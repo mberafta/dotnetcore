@@ -36,7 +36,8 @@ namespace MB_TEST.Controllers
                     "Sam",
                     "Scooby",
                     "Katrina",
-                    "Skyyart"
+                    "Skyyart",
+                    "Gotaga"
                 };
 
                 return View(tfm);
